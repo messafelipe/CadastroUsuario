@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CadastroUsuario.Application.InputModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroUsuario.API.Controllers
 {
@@ -9,6 +10,30 @@ namespace CadastroUsuario.API.Controllers
         public IActionResult Get()
         {
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] UsuarioInputModel input)
+        {
+            return CreatedAtAction(nameof(GetById), new { id = 1}, input);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id)
+        {
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete (int id)
+        {
+            return NoContent();
         }
     }
 }
