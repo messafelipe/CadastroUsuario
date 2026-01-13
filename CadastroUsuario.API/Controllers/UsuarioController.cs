@@ -1,4 +1,5 @@
 ﻿using CadastroUsuario.Application.InputModel;
+using CadastroUsuario.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroUsuario.API.Controllers
@@ -6,10 +7,21 @@ namespace CadastroUsuario.API.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
+        private readonly IUsuarioService _usuarioService;
+
+        public UsuarioController(IUsuarioService usuarioService)
+        {
+            _usuarioService = usuarioService;
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            var usuarios = _usuarioService.Get();
+            
+            if(!usuarios.Any()) return NotFound(new { message = "Nenhum usuário cadastrado."});
+
+            return Ok(usuarios);
         }
 
         [HttpGet("{id}")]
