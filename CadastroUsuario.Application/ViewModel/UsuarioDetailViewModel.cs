@@ -1,13 +1,14 @@
 ﻿namespace CadastroUsuario.Application.ViewModel
 {
-    public class UsuarioViewModel
+    public class UsuarioDetailViewModel
     {
-        public UsuarioViewModel(
+        public UsuarioDetailViewModel(
             int id, 
             string nomeCompleto, 
             string email, 
             string cpf,
             string telefone,
+            DateTime dataNascimento,
             string? generoDescricao = default,
             int idade = default
         )
@@ -16,6 +17,7 @@
             NomeCompleto = nomeCompleto;
             Email = email;
             Cpf = cpf;
+            DataNascimento = dataNascimento;
             Telefone = telefone;
             GeneroDescricao = generoDescricao ?? string.Empty;
             Idade = idade;
@@ -28,6 +30,8 @@
         public string Email { get; set; }
 
         public string Cpf { get; set; }
+
+        public DateTime DataNascimento { get; set; }
 
         public string Telefone { get; set; }
 
