@@ -1,5 +1,8 @@
+using CadastroUsuario.Application.Services;
 using CadastroUsuario.Application.Services.Interfaces;
+using CadastroUsuario.Core.Security.Interfaces;
 using CadastroUsuario.Infrastructure.Persistence;
+using CadastroUsuario.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +13,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<CadastroUsuarioDbContext>();
 
-builder.Services.AddScoped<IUsuarioService, IUsuarioService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ISenhaHasher, SenhaHasher>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
