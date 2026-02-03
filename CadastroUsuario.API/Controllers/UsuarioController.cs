@@ -18,33 +18,42 @@ namespace CadastroUsuario.API.Controllers
         public IActionResult Get()
         {
             var usuarios = _usuarioService.Get();
-            
-            if(!usuarios.Any()) return NotFound(new { message = "Nenhum usuário cadastrado."});
-
+            if (!usuarios.Any()) return NotFound(new { message = "Nenhum usuário cadastrado." });
             return Ok(usuarios);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok();
+            var usuario = _usuarioService.GetById(id);
+            return Ok(usuario);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] UsuarioInputModel input)
         {
-            return CreatedAtAction(nameof(GetById), new { id = 1}, input);
+            var usuarioId = _usuarioService.Post(input);
+            return CreatedAtAction(nameof(GetById), new { id = usuarioId }, input);
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id)
+        public IActionResult Patch(int id, [FromBody] UsuarioInputModel input)
         {
+            _usuarioService.Patch(id, input);
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete (int id)
+        [HttpPatch("{id}/ativar")]
+        public IActionResult Ativar(int id)
         {
+            _usuarioService.Ativar(id);
+            return NoContent();
+        }
+
+        [HttpPatch("{id}/desativar")]
+        public IActionResult Desativar (int id)
+        {
+            _usuarioService.Desativar(id);
             return NoContent();
         }
     }

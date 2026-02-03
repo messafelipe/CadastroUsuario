@@ -1,4 +1,6 @@
-﻿namespace CadastroUsuario.Application.InputModel
+﻿using CadastroUsuario.Core.Enums;
+
+namespace CadastroUsuario.Application.InputModel
 {
     public class UsuarioInputModel
     {
@@ -10,9 +12,7 @@
 
         public string ConfirmarSenha { get; set; }
 
-        public int Genero { get; set; }
-
-        public double RendaMensal { get; set; }
+        public Genero Genero { get; set; }
 
         public string Cpf { get; set; }
 
