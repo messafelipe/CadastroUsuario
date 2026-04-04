@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroUsuario.API.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
@@ -15,10 +16,9 @@ namespace CadastroUsuario.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
-            var usuarios = _usuarioService.Get();
-            if (!usuarios.Any()) return NotFound(new { message = "Nenhum usuário cadastrado." });
+            var usuarios = _usuarioService.GetAll();
             return Ok(usuarios);
         }
 
@@ -32,8 +32,8 @@ namespace CadastroUsuario.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] UsuarioInputModel input)
         {
-            var usuarioId = _usuarioService.Post(input);
-            return CreatedAtAction(nameof(GetById), new { id = usuarioId }, input);
+            var usuario = _usuarioService.Post(input);
+            return CreatedAtAction(nameof(GetById), new { id = usuario.Id }, usuario);
         }
 
         [HttpPatch("{id}")]
