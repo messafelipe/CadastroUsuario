@@ -1,4 +1,6 @@
 ﻿using CadastroUsuario.Core.Enums;
+using CadastroUsuario.Core.Exceptions;
+using CadastroUsuario.Core.Validations;
 
 namespace CadastroUsuario.Core.Entities
 {
@@ -16,6 +18,8 @@ namespace CadastroUsuario.Core.Entities
             Telefone = telefone;
             DataCadastro = DateTime.Now;
             Ativo = true;
+
+            Validacoes();
         }
 
         public string NomeCompleto { get; private set; }
@@ -65,6 +69,8 @@ namespace CadastroUsuario.Core.Entities
             Cpf = cpf;
             DataNascimento = dataNascimento;
             Telefone = telefone;
+
+            Validacoes();
         }
 
         public int CalcularIdade()
@@ -77,6 +83,18 @@ namespace CadastroUsuario.Core.Entities
                 idade--;
 
             return idade;
+        }
+
+        private void Validacoes()
+        {
+            if (string.IsNullOrWhiteSpace(NomeCompleto))
+                throw new DomainException("O nome completo é obrigatório.");
+            if (string.IsNullOrWhiteSpace(Email))
+                throw new DomainException("O email é obrigatório.");
+            if (string.IsNullOrWhiteSpace(SenhaHash))
+                throw new DomainException("A senha é obrigatória.");
+            if (!CpfValidator.EhValido(Cpf))
+                throw new DomainException("CPF inválido.");
         }
     }
 }
